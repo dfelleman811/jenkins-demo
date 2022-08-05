@@ -1,14 +1,26 @@
 pipeline {
     agent {
         docker {
-            label 'windows'
-            image 'mcr.microsoft.com/powershell'
+            image 'maven:3.8.1-adoptopenjdk-11'
+            args '-v C:/Users/DanielFelleman/.m2:/root/.m2'
         }
     }
+
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'mvn --version'
+                echo 'Building...'
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
             }
         }
     }
