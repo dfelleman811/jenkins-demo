@@ -15,7 +15,7 @@ public class JenkinsDemoApplication {
 
     @GetMapping
     public String hello() {
-        return "Hello! Test worked.";
+        return "Hello! If you're seeing this your github web hook successfully triggered a jenkins job!";
     }
 
 
