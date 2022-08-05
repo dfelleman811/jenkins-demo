@@ -1,27 +1,17 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:latest'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
 
     stages {
-        stage('Build') {
+        stage("Build") {
             steps {
-                echo 'Building...'
-                sh 'mvn -B -DskipTests clean package'
+                sh "mvn -version"
+                sh "mvn clean install"
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-            }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
